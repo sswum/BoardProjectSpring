@@ -1,4 +1,4 @@
-package org.ssum.project;
+package org.ssum;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
