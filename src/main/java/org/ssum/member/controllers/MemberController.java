@@ -11,7 +11,8 @@ public class MemberController {
 
     @GetMapping("/join")
     public String join() {
-        return "front/member/join"; //이번엔 pc와 모바일을 분리시킬 것
+        return "front/member/join";
+        //이번엔 front - pc뷰 ,mobile - 모바일뷰로 분리시킬 것 & admin도 따로
     }
 
     @PostMapping("/join")
