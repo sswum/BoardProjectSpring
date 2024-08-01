@@ -9,19 +9,21 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.ssum.member.services.LoginFailureHandler;
 import org.ssum.member.services.LoginSuccessHandler;
+import org.ssum.member.services.MemberAuthenticationEntryPoint;
 
 @Configuration
-public class SecurityConfig {//개발된 이유가 인증,인가 => 접근 통제와 관련 =>해시화 시키기 위해
+public class SecurityConfig {
 
-    @Bean //이건 정형화된 설정이니까 따라 쓰면 된다.
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
         /* 로그인 , 로그아웃 S */
 
-        http.formLogin(f -> { //기본적인 정보를 넘겨 줘야지 확인할 수 있기 때문에 파라미터로 값을 넘겨줌
+        http.formLogin(f -> {
             f.loginPage("/member/login")
                     .usernameParameter("email")
                     .passwordParameter("password")
-                    .successHandler(new LoginSuccessHandler()) //successForwardUrl은 성공 시 이동할 페이지 지정
+                    .successHandler(new LoginSuccessHandler())
                     .failureHandler(new LoginFailureHandler());
         });
 
@@ -36,13 +38,20 @@ public class SecurityConfig {//개발된 이유가 인증,인가 => 접근 통�
         /* 인가(접근 통제) 설정 S */
 
         http.authorizeHttpRequests(c -> {
-            c.requestMatchers("/mypage/**")
+            c.requestMatchers("/mypage/**").authenticated() //회원 전용
+                    .requestMatchers("/admin/**").hasAnyAuthority("ADMIN")
+                    .anyRequest().permitAll();
         });
+
+        http.exceptionHandling(c -> { //인증, 인가 실패 시 유입되는 경로 지정
+            c.authenticationEntryPoint(new MemberAuthenticationEntryPoint());
+        });
+
 
         /* 인가(접근 통제) 설정 E */
 
 
-        return http.build(); //이걸 설정하고 나면 로그인페이지가 나오지 않는다.
+        return http.build();
     }
 
     @Bean

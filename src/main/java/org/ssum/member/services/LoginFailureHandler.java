@@ -16,12 +16,12 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException { //로그인 실패시에 유입되는 메서드
 
-        //세션을 유지해야 쿠키를 가져와서 정보를 가져올 수 있다.
+
         HttpSession session = request.getSession();
 
         //요청 데이터 담기
         RequestLogin form = new RequestLogin();
-        //직접 값을 주입해야함.
+
         form.setEmail(request.getParameter("email"));
         form.setPassword(request.getParameter("password"));
 
@@ -54,6 +54,6 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 
         //로그인 실패 시 로그인 페이지 이동
         response.sendRedirect(request.getContextPath() + "/member/login");
-        //추가해서 허연 페이지에 머무르지 않고 로그인 페이지로 넘어가게 했다.
+
     }
 }

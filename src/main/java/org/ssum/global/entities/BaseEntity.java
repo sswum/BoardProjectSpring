@@ -17,10 +17,10 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
     @CreatedDate
-    @Column(updatable = false) // 추가할때만 값이 들어가게 설정
+    @Column(updatable = false)
     private LocalDateTime createdAt;
     @LastModifiedDate
-    @Column(insertable = false) // 업데이트할 때만 값이 들어가게 설정
+    @Column(insertable = false)
     private LocalDateTime modifiedAt;
     @Column(insertable = false)
     private LocalDateTime deletedAt;

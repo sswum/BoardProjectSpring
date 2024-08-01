@@ -32,7 +32,7 @@ public interface PasswordValidator {
      * @return
      */
     default boolean specialCharsCheck(String password) {
-        String pattern= ".*[^0-9a-zA-Zㄱ-ㅎ가-힣]+.*";  //[] => 문자열 하나하나 체크한다는 대괄호!
+        String pattern= ".*[^0-9a-zA-Zㄱ-ㅎ가-힣]+.*";
         //정규표현식에서 꺽새는 __ 가 아닌 것을 표현
         return password.matches(pattern);
     }

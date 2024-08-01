@@ -10,7 +10,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableConfigurationProperties(FileProperties.class)
 @Configuration
 public class FileConfig implements WebMvcConfigurer {
-    //정적 경로와 실제 파일 패스와 웹에서 접근할 수 있도록
 
     private final FileProperties properties;
 

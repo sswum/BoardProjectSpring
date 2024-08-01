@@ -30,7 +30,7 @@ public class MemberController {
     private final JoinValidator joinValidator;
     private final MemberSaveService memberSaveService;
     private final MemberUtil memberUtil;
-    private final BoardRepository boardRepository; //테스트용으로 여기 넣음
+    private final BoardRepository boardRepository;
 
     @ModelAttribute
     public RequestLogin requestLogin() {
@@ -55,12 +55,12 @@ public class MemberController {
         memberSaveService.save(form); //회원 가입 처리
 
 
-        return "redirect:/member/login";//회원 가입 끝나면 로그인 페이지로 이동하겠당}
+        return "redirect:/member/login";
     }
 
     @GetMapping("/login")
     public String login(@Valid @ModelAttribute RequestLogin form, Errors errors) {
-        String code = form.getCode(); //코드에 따라서
+        String code = form.getCode();
         if (StringUtils.hasText(code)) {
             errors.reject(code, form.getDefaultMessage());
             //비번 만료인 경우 비번 재설정 페이지 이동

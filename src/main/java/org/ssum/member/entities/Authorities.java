@@ -16,7 +16,7 @@ import org.ssum.member.constants.Authority;
 @AllArgsConstructor
 public class Authorities {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY) // 보통 매니투원은 사용자 한명인데 게시글 여러개 경우
+    @ManyToOne(fetch = FetchType.LAZY)
     private Member member;
 
     @Id

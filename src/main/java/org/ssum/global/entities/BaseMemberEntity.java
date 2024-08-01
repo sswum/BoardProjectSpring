@@ -13,11 +13,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Getter @Setter
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseMemberEntity extends BaseEntity {
-    @CreatedBy //로그인한 멤버 사용자를 간단하게 조회할 수 있게
+    @CreatedBy
     @Column(length = 65, updatable = false)
     private String createBy;
     @Column(length = 65, insertable = false)
-    @LastModifiedBy // 단순하게 값을 바꿀 땐 modifiedBy에 들어간다.
+    @LastModifiedBy
     private String modifiedBy;
 
 

@@ -18,14 +18,13 @@ public class JoinValidator implements Validator, PasswordValidator, MobileValida
     @Override
     public boolean supports(Class<?> clazz) {
         return clazz.isAssignableFrom(RequestJoin.class);
-        //다 검증하는게 회원가입하는 커맨드객체만 검증하겠다.
-        //supports는 회원가입하는 검증관련 메서드이다.
+
     }
 
     @Override
     public void validate(Object target, Errors errors) {
         if (errors.hasErrors()) {
-            return; // 에러가 나면 다음껄 할 필요없으니까 그냥 return; 했다.
+            return;
         }
 
         /**

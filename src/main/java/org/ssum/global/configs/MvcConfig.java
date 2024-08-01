@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@EnableJpaAuditing //엔티티 객체 변경됐을 때 자동으로 값을 등록해준다.
+@EnableJpaAuditing
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 

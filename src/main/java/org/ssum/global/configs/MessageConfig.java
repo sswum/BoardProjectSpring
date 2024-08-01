@@ -11,8 +11,8 @@ public class MessageConfig {
     public MessageSource messageSource() {
         ResourceBundleMessageSource ms = new ResourceBundleMessageSource();
         ms.setDefaultEncoding("UTF-8");
-        ms.setUseCodeAsDefaultMessage(true); //오류가 뜨면 코드가 뜨게끔 설정하겠다.
-        ms.setBasenames("messages.commons","messages.validations","messages.errors"); //경로 설정
+        ms.setUseCodeAsDefaultMessage(true);
+        ms.setBasenames("messages.commons","messages.validations","messages.errors");
 
         return ms;
     }

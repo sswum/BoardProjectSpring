@@ -16,7 +16,7 @@ public class MemberInfo implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;  //얘를 가지고 인가를 한다.
     private Member member;
 
-    @Override //권한체계가 일정치 않기 때문에 우리가 정의해야 한다.
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
@@ -32,8 +32,7 @@ public class MemberInfo implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {  //원래는 계정이 만료되면 못 쓰는건데 내가 그걸 통제해서
-        //이 메소드에 유입되면 쓸 수 있게 할 지 말지 ...?
+    public boolean isAccountNonExpired() {
         return true;
     }
 
