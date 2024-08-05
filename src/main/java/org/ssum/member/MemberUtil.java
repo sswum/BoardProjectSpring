@@ -28,7 +28,7 @@ public class MemberUtil { //회원 정보를 가공해서 편의 기능 만들�
 
     public Member getMember() { //로그인 한 후 회원정보를 가지고 서비스 가공
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication.isAuthenticated() && authentication.getPrincipal() instanceof MemberInfo) {
+        if (authentication !=null && authentication.isAuthenticated() && authentication.getPrincipal() instanceof MemberInfo) {
             MemberInfo memberInfo = (MemberInfo) authentication.getPrincipal();
             return memberInfo.getMember();
         }

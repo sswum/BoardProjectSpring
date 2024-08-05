@@ -2,7 +2,10 @@ package org.ssum.global.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -11,6 +14,8 @@ import org.ssum.member.services.LoginFailureHandler;
 import org.ssum.member.services.LoginSuccessHandler;
 import org.ssum.member.services.MemberAuthenticationEntryPoint;
 
+@EnableMethodSecurity
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
@@ -44,12 +49,18 @@ public class SecurityConfig {
         });
 
         http.exceptionHandling(c -> { //인증, 인가 실패 시 유입되는 경로 지정
-            c.authenticationEntryPoint(new MemberAuthenticationEntryPoint());
+            c.authenticationEntryPoint(new MemberAuthenticationEntryPoint())
+                    .accessDeniedHandler((req, res, e) -> {
+                        res.sendError(HttpStatus.UNAUTHORIZED.value());
+                    });
+
         });
 
 
         /* 인가(접근 통제) 설정 E */
 
+        //iframe 자원 출처를 같은 서버 자원으로 한정
+        http.headers(c -> c.frameOptions(f -> f.sameOrigin()));
 
         return http.build();
     }

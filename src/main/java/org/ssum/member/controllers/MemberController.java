@@ -4,33 +4,25 @@ package org.ssum.member.controllers;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.ssum.board.entities.Board;
-import org.ssum.board.repositories.BoardRepository;
-import org.ssum.member.MemberInfo;
-import org.ssum.member.MemberUtil;
+import org.ssum.global.exceptions.ExceptionProcessor;
 import org.ssum.member.services.MemberSaveService;
 import org.ssum.member.validators.JoinValidator;
-
-import java.security.Principal;
 
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 @RequestMapping("/member")
 @SessionAttributes("requestLogin")
-public class MemberController {
+public class MemberController implements ExceptionProcessor {
 
     private final JoinValidator joinValidator;
     private final MemberSaveService memberSaveService;
-    private final MemberUtil memberUtil;
-    private final BoardRepository boardRepository;
+
 
     @ModelAttribute
     public RequestLogin requestLogin() {
@@ -39,6 +31,8 @@ public class MemberController {
 
     @GetMapping("/join")
     public String join(@ModelAttribute RequestJoin form) {
+
+
         return "front/member/join";
         //이번엔 front - pc뷰 ,mobile - 모바일뷰로 분리시킬 것 & admin도 따로
     }
@@ -72,6 +66,23 @@ public class MemberController {
         return "front/member/login"; //front
     }
 
+    @ResponseBody
+    @GetMapping("/test1")
+    @PreAuthorize("isAuthenticated()")
+    public void test1() {
+        log.info("test1 - 회원만 접근 가능");
+
+    }
+
+    @ResponseBody
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping
+    public void test2() {
+        log.info("test2 - 관리자만 접근 가능");
+    }
+
+
+    /*
     @ResponseBody
     @GetMapping("/test")
     public void test(Principal principal) {
@@ -120,10 +131,10 @@ public class MemberController {
 
                 boardRepository.saveAndFlush(board);
             }
-     */
+
         Board board = boardRepository.findById("freetalk").orElse(null);
         board.setBName("(수정)자유게시판");
         boardRepository.saveAndFlush(board);
+    } */
 
-    }
 }
