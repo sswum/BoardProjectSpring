@@ -8,7 +8,7 @@ const fileManager = {
 *파일 업로드
 *
 */
-upload() {
+upload(files, gid, location) {
 },
 /**
 *파일 삭제
@@ -37,6 +37,13 @@ fileEl.multiple= true;
 for (const el of fileUploads) {
     el.addEventListener("click", function(){
         fileEl.value = "";
+        delete fileEl.gid;
+        delete fileEl.location;
+
+        const dataset = this.dataset;
+        fileEl.gid = dataset.gid;
+        if (dataset.location) fileEl.location = dataset.location;
+
         fileEl.click();
 
     })
@@ -49,6 +56,7 @@ for (const el of fileUploads) {
 fileEl.addEventListener("change",function(e) {
     const files = e.target.files;
     console.log(files);
-});
+    fileManager.upload(files, fileEl.gid, fileEl.location);
+    });
 
 });
