@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.ssum.global.entities.Member;
 import org.ssum.member.constants.Authority;
 
 @Data

@@ -24,7 +24,7 @@ public class QAuthorities extends EntityPathBase<Authorities> {
 
     public final EnumPath<org.ssum.member.constants.Authority> authority = createEnum("authority", org.ssum.member.constants.Authority.class);
 
-    public final org.ssum.global.entities.QMember member;
+    public final QMember member;
 
     public QAuthorities(String variable) {
         this(Authorities.class, forVariable(variable), INITS);
@@ -44,7 +44,7 @@ public class QAuthorities extends EntityPathBase<Authorities> {
 
     public QAuthorities(Class<? extends Authorities> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.member = inits.isInitialized("member") ? new org.ssum.global.entities.QMember(forProperty("member")) : null;
+        this.member = inits.isInitialized("member") ? new QMember(forProperty("member")) : null;
     }
 
 }

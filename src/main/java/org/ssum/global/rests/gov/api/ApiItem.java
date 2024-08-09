@@ -3,12 +3,11 @@ package org.ssum.global.rests.gov.api;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
 
 @Data
-@JsonIgnoreProperties(ignoreUnknown = true) //값이 없거나 이상한 게 유입되면 무시하도록 true
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ApiItem {
     private String addr1;
     private String addr2;
