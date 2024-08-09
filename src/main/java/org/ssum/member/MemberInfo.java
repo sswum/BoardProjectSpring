@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.ssum.global.entities.Member;
+import org.ssum.member.entities.Member;
 
 import java.util.Collection;
 

@@ -3,11 +3,12 @@ package org.ssum.file.services;
 import com.querydsl.core.BooleanBuilder;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.ssum.file.contants.FileStatus;
+import org.ssum.file.constants.FileStatus;
 import org.ssum.file.entities.FileInfo;
 import org.ssum.file.entities.QFileInfo;
 import org.ssum.file.exceptions.FileNotFoundException;
@@ -19,8 +20,8 @@ import java.util.Objects;
 
 import static org.springframework.data.domain.Sort.Order.asc;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 @EnableConfigurationProperties(FileProperties.class)
 public class FileInfoService {
 
@@ -102,7 +103,7 @@ public class FileInfoService {
 
     // 브라우저 접근 주소
     public String getFileUrl(FileInfo item) {
-        return request.getContextPath() + properties.getUrl() + "/" + getFolder(item.getSeq()) + "/" + getFileName(item);
+        return request.getContextPath() + properties.getUrl() + getFolder(item.getSeq()) + "/" + getFileName(item);
     }
 
     // 서버 업로드 경로

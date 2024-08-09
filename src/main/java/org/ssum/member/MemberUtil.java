@@ -3,9 +3,9 @@ package org.ssum.member;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import org.ssum.global.entities.Member;
 import org.ssum.member.constants.Authority;
 import org.ssum.member.entities.Authorities;
+import org.ssum.member.entities.Member;
 
 import java.util.List;
 

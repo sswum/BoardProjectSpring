@@ -1,17 +1,18 @@
 package org.ssum.file.services;
 
-import org.ssum.file.exceptions.FileNotFoundException;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.ssum.file.entities.FileInfo;
+import org.ssum.file.exceptions.FileNotFoundException;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-@RequiredArgsConstructor
 @Service
+@RequiredArgsConstructor
 public class FileDownloadService {
     private final FileInfoService infoService;
     private final HttpServletResponse response;
@@ -45,5 +46,5 @@ public class FileDownloadService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        }
+    }
 }
