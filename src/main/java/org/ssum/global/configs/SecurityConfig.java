@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.filter.CorsFilter;
 import org.ssum.member.services.LoginFailureHandler;
 import org.ssum.member.services.LoginSuccessHandler;
 import org.ssum.member.services.MemberAuthenticationEntryPoint;
@@ -23,6 +24,9 @@ import org.ssum.member.services.MemberInfoService;
 @Configuration
 public class SecurityConfig {
 
+    // 8/14 조회 목록을 가져오려면 토큰도 가져와야 하고 cors 보안도 해야하는데 여기는 없어서 나머지만 구현
+
+    
     private final MemberInfoService memberInfoService;
 
     @Bean
