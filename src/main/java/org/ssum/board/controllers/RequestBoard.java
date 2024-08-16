@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.util.UUID;
 
-// 8/13일에 만든 게시판인데 게시판에 쓸 수 있는 항목들이 많아짐.
 @Data
 public class RequestBoard {
     private Long seq; // 글 번호 - 글 수정시 필요

@@ -1,5 +1,6 @@
 package org.ssum.board.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -15,6 +16,7 @@ import org.ssum.member.entities.Member;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(indexes = @Index(name = "idx_board_data", columnList = "notice DESC, createdAt DESC"))
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class BoardData extends BaseEntity {
     @Id @GeneratedValue
     private Long seq;

@@ -1,13 +1,14 @@
 package org.ssum.board.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.tomcat.jni.FileInfo;
 import org.springframework.util.StringUtils;
-import org.ssum.file.entities.FileInfo;
 import org.ssum.global.entities.BaseMemberEntity;
 import org.ssum.member.constants.Authority;
 
@@ -21,6 +22,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true) // json 데이터가 잘못 넘어와도 오류가 안 나게끔 설정
 @Table(indexes = @Index(name = "idx_board_basic", columnList = "listOrder DESC, createdAt DESC"))
 public class Board extends BaseMemberEntity {
     @Id

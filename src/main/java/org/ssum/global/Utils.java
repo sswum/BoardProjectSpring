@@ -10,13 +10,13 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Component("utils")
+@Component
 @RequiredArgsConstructor
 public class Utils { // 빈의 이름 - utils
 
@@ -24,7 +24,8 @@ public class Utils { // 빈의 이름 - utils
     private final HttpServletRequest request;
 
 
-    public Map<String, List<String>> getErrorMessages(Errors errors) {//JSON 받을 때는 에러를 직접 가공
+
+    public Map<String, List<String>> getErrorMessages(Errors errors) { //JSON 받을 때는 에러를 직접
         // FieldErrors
 
 
@@ -62,11 +63,36 @@ public class Utils { // 빈의 이름 - utils
         ms.setUseCodeAsDefaultMessage(true);
         return messages;
     }
-    public String getMessage(String code){
-        List<String> messages = getCodeMessages(new String[]{code});
+
+    public String getMessage(String code) {
+        List<String> messages = getCodeMessages(new String[] {code});
 
         return messages.isEmpty() ? code : messages.get(0);
     }
+//
+//    public String url(String url) {
+//        List<ServiceInstance> instances = discoveryClient.getInstances("api-service");
+//
+//        try {
+//            return String.format("%s%s", instances.get(0).getUri().toString(), url);
+//        } catch (Exception e) {
+//            return String.format("%s://%s:%d%s%s", request.getScheme(), request.getServerName(), request.getServerPort(), request.getContextPath(), url);
+//        }
+//    }
+
+    public String redirectUrl(String url) {
+        String _fromGateway = Objects.requireNonNullElse(request.getHeader("from-gateway"), "false");
+        String gatewayHost = Objects.requireNonNullElse(request.getHeader("gateway-host"), "");
+        boolean fromGateway = _fromGateway.equals("true");
+
+        return fromGateway ? request.getScheme() + "://" + gatewayHost + "/app" + url : request.getContextPath() + url;
+    }
+//
+//    public String adminUrl(String url) {
+//        List<ServiceInstance> instances = discoveryClient.getInstances("admin-service");
+//        return String.format("%s%s", instances.get(0).getUri().toString(), url);
+//    }
+
 
     /**
      * 접속 장비가 모바일인지 체크
@@ -103,3 +129,5 @@ public class Utils { // 빈의 이름 - utils
         return prefix + path;
     }
 }
+
+
