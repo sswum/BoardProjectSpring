@@ -18,7 +18,7 @@ public class BeanConfig {
     @Bean
     public JPAQueryFactory jpaQueryFactory() {
         return new JPAQueryFactory(em);
-        //JPA쿼리 팩토리 생성 : 쿼리를 계속 생성할려고 하는 거 아닌징?
+        //JPA쿼리 팩토리 생성 : 쿼리 수행을 많이 할려고 하는 것
     }
 
     @Bean
