@@ -1,15 +1,17 @@
 package org.ssum.file.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.ssum.file.entities.FileInfo;
-import org.ssum.file.services.FileDeleteService;
-import org.ssum.file.services.FileDownloadService;
-import org.ssum.file.services.FileInfoService;
-import org.ssum.file.services.FileUploadService;
+import org.ssum.file.services.*;
+import org.ssum.global.Utils;
+import org.ssum.global.exceptions.BadRequestException;
 import org.ssum.global.exceptions.RestExceptionProcessor;
 import org.ssum.global.rests.JSONData;
 
@@ -24,18 +26,32 @@ public class FileController implements RestExceptionProcessor { //주로 자바�
     private final FileDownloadService downloadService;
     private final FileInfoService infoService;
     private final FileDeleteService deleteService;
+    private final BeforeFileUploadProcess beforeProcess;
+    private final AfterFileUploadProcess afterProcess;
+    private final Utils utils;
 
 
     @PostMapping("/upload")
     public ResponseEntity<JSONData> upload(@RequestPart("file") MultipartFile[] files,
-                                           @RequestParam(name = "gid", required = false) String gid, @RequestParam(name = "location", required = false) String location) {
+                                           @Valid RequestUpload form, Errors errors) {
 
+        form.setFiles(files);
 
-        List<FileInfo> items = uploadService.upload(files, gid, location);
+        if (errors.hasErrors()) {
+            throw new BadRequestException(utils.getErrorMessages(errors));
+        }
+
+        beforeProcess.process(form); // 파일 업로드 전처리
+
+        List<FileInfo> items = uploadService.upload(files, form.getGid(), form.getLocation());
+
+        afterProcess.process(form); // 파일 업로드 후처리
+
         HttpStatus status = HttpStatus.CREATED;
         JSONData data = new JSONData(items);
-        return ResponseEntity.status(HttpStatus.CREATED).body(data);
+        data.setStatus(status);
 
+        return ResponseEntity.status(status).body(data);
     }
 
     @GetMapping("/download/{seq}")

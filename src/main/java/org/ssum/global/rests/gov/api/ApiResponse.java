@@ -6,4 +6,5 @@ import lombok.Data;
 public class ApiResponse {
     private ApiHeader header;
     private ApiBody body;
+
 }

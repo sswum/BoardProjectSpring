@@ -47,9 +47,9 @@ public class FileDeleteService {
 
     public List<FileInfo> delete(String gid, String location, FileStatus status) {
         List<FileInfo> items = infoService.getList(gid, location, status);
-        items.forEach(i-> delete(i.getSeq()));
+        items.forEach(i -> delete(i.getSeq()));
 
-        return items; // 삭제된 파일 리스트
+        return items;
     }
 
     public List<FileInfo> delete(String gid, String location) {
@@ -59,4 +59,5 @@ public class FileDeleteService {
     public List<FileInfo> delete(String gid) {
         return delete(gid, null);
     }
+
 }
