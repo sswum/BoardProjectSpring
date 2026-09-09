@@ -2,3 +2,7 @@ newone.text
 eeeee
 dddsddd
 rdrdr
+
+
+수정
+delete
